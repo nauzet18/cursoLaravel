@@ -13,3 +13,20 @@ bootstrap/cache/
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+
+
+first_steps/vendor/
+first_steps/node_modules/
+
+# Laravel 4 specific
+first_steps/bootstrap/compiled.php
+first_steps/app/storage/
+
+# Laravel 5 & Lumen specific
+first_steps/bootstrap/cache/
+first_steps/.env.*.php
+first_steps/.env.php
+first_steps/.env
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+first_steps/.rocketeer/
