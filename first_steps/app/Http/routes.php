@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+//Se establece el recurso book y se crean todas las rutas acorde al CRUD
+Route::resource('book', 'BookController');
