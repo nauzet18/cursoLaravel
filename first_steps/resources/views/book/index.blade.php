@@ -8,7 +8,7 @@
         <div class="panel-heading">Home</div>
 
         <div class="panel-body">
-          Esto es la vista de show de book
+          Esto es la vista index de book
         </div>
       </div>
     </div>

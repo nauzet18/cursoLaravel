@@ -16,8 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
-        echo "NAUZET! index";
+        return view('book.index');
     }
 
     /**

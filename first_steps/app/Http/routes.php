@@ -16,3 +16,8 @@ Route::get('/', function () {
 });
 //Se establece el recurso book y se crean todas las rutas acorde al CRUD
 Route::resource('book', 'BookController');
+
+Route::get('home', [
+    'as' => 'home',
+    'uses' => 'HomeController@index'
+]);

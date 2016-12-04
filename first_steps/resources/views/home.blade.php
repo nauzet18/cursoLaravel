@@ -8,7 +8,8 @@
         <div class="panel-heading">Home</div>
 
         <div class="panel-body">
-          Esto es la vista de show de book
+          You are using bootstrap
+          Esto se puede convertir en tu vista de inicio
         </div>
       </div>
     </div>
