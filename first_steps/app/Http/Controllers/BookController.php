@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Book;
 
 class BookController extends Controller
 {
@@ -16,7 +17,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('book.index');
+        $books = Book::all();
+        return view('book.index', ['books' => $books ]);
     }
 
     /**
@@ -26,7 +28,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('book.create');
     }
 
     /**
@@ -37,7 +39,8 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Book::create($request->all());
+        return redirect('/book');
     }
 
     /**
@@ -48,7 +51,6 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
         return view('book.show', ['book' => Book::find($id) ]);
     }
 
@@ -60,7 +62,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('book.edit', ['book' => Book::find($id) ]);
     }
 
     /**
@@ -72,7 +74,13 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $book = Book::find($id);
+        //De esta manera relleno un objeto  con todos los campos que se han enviado por el formulario.
+        //Npta: solo se rellenaran los atributos indicados en el modelo como fillable
+        $book->fill($request->all() );
+        $book->save();
+  
+        return redirect('/book/'.$book->id);
     }
 
     /**
