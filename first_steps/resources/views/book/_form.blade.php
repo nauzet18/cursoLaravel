@@ -1,5 +1,7 @@
+@include('errors.alerts')
+
 @if($type=='create')
-{!! Form::open(['route' => ($type=='create')?'book.store':'book.update']) !!}
+{!! Form::open(['route' => 'book.store']) !!}
 @else
 {!! Form::model($book, [
     'method' => 'PATCH',

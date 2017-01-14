@@ -28,7 +28,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.create');
+        return view('book.create', ['book' => new Book ]);
     }
 
     /**
@@ -39,6 +39,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $v = \Validator::make($request->all(), [
+            'title' => 'required',
+            'isbn' => 'required|unique:books',
+        ]);
+        if ($v->fails())
+        {
+            return redirect()->back()->withInput()->withErrors($v->errors());
+        }
+
         Book::create($request->all());
         return redirect('/book');
     }
@@ -74,6 +83,15 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $v = \Validator::make($request->all(), [
+            'title' => 'required',
+            'isbn' => 'required|unique:books',
+        ]);
+        if ($v->fails())
+        {
+            return redirect()->back()->withInput()->withErrors($v->errors());
+        }
+
         $book = Book::find($id);
         //De esta manera relleno un objeto  con todos los campos que se han enviado por el formulario.
         //Npta: solo se rellenaran los atributos indicados en el modelo como fillable
