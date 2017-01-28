@@ -9,6 +9,8 @@
 
         <div class="panel-body">
 
+          @include('errors.alerts')
+
           <div class="form-group">
               {!! Form::label('title', 'Title:') !!}
               {{$book->title }}

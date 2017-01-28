@@ -60,7 +60,25 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        return view('book.show', ['book' => Book::find($id) ]);
+        $book = Book::find($id);
+        if(empty($book))
+        {
+            //Necesito saber como apñadir un mensaje flash. junto con la redireccion y que se pueda 
+            //añadir el tipo de mensaje. 
+            \Session::flash('flash_message', 'No se ha encontrado el elemento con id: '.$id);
+            return redirect('/book');
+        }
+
+        //NOTA: Esta  manera de mandar mensajes flash, no me gusta nada, 
+        //Esto en si, añadir valiarebles de dession  y rescatarla en la vista. Demasiado primitivo.
+        //ver completo el video https://laracasts.com/series/laravel-5-fundamentals/episodes/20
+        //para ver si dice algo mejor, o buscar un sistema de mensajes flash mas decente, donde puedas
+        //definir mensajes flashNow o flash solo. Y definiendo el tipo de mensaje.
+        \Session::flash('flash_message', 'Mostrado correctamente: '.$id);
+            
+
+
+        return view('book.show', ['book' => $book ]);
     }
 
     /**

@@ -8,9 +8,8 @@
         <div class="panel-heading">Home</div>
 
         <div class="panel-body">
+          @include('errors.alerts')
           Esto es la vista index de book
-
-          {{dd($books)}}
         </div>
       </div>
     </div>
