@@ -49,6 +49,7 @@ class BookController extends Controller
         }
 
         Book::create($request->all());
+        flash('Creado correctamente');
         return redirect('/book');
     }
 
@@ -63,20 +64,12 @@ class BookController extends Controller
         $book = Book::find($id);
         if(empty($book))
         {
-            //Necesito saber como apñadir un mensaje flash. junto con la redireccion y que se pueda 
-            //añadir el tipo de mensaje. 
-            \Session::flash('flash_message', 'No se ha encontrado el elemento con id: '.$id);
+            //Uso el paquete de laracasts/flash https://github.com/laracasts/flash
+            //Que permite mostrar mensajes flash muy facilmente solo con llamar al metodo flash,
+            //indicar el mensaje y el tipo de mensaje
+            flash('No se ha encontrado el elemento con id: '.$id, 'danger');
             return redirect('/book');
         }
-
-        //NOTA: Esta  manera de mandar mensajes flash, no me gusta nada, 
-        //Esto en si, añadir valiarebles de dession  y rescatarla en la vista. Demasiado primitivo.
-        //ver completo el video https://laracasts.com/series/laravel-5-fundamentals/episodes/20
-        //para ver si dice algo mejor, o buscar un sistema de mensajes flash mas decente, donde puedas
-        //definir mensajes flashNow o flash solo. Y definiendo el tipo de mensaje.
-        \Session::flash('flash_message', 'Mostrado correctamente: '.$id);
-            
-
 
         return view('book.show', ['book' => $book ]);
     }
@@ -115,6 +108,7 @@ class BookController extends Controller
         //Npta: solo se rellenaran los atributos indicados en el modelo como fillable
         $book->fill($request->all() );
         $book->save();
+        flash('Guardado correctamente');
   
         return redirect('/book/'.$book->id);
     }
