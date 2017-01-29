@@ -1,18 +1,43 @@
 @extends('app')
-
 @section('content')
 <div class="container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-heading">Home</div>
-
-        <div class="panel-body">
-          @include('errors.alerts')
-          Esto es la vista index de book
-        </div>
+    @include('errors.alerts')
+    <div class="row">
+     {!! Form::open(['route' => 'book/search', 'method' => 'post', 'novalidate', 'class' => 'form-inline']) !!}
+      <div class="form-group">
+        <label for="exampleInputName2">Title</label>
+        <input type="text" class="form-control" name = "title" >
       </div>
-    </div>
+      <button type="submit" class="btn btn-default">Search</button>
+      <a href="{{ route('book.index') }}" class="btn btn-primary">All</a>
+      <a href="{{ route('book.create') }}" class="btn btn-primary">Create</a>
+    {!! Form::close() !!}
+      <br>
+      <table class="table table-condensed table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Action</th>  
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($books as $book)
+          <tr>
+            <td>{{ $book->title }}</td>
+            <td>{{ $book->isbn }}</td>
+            <td>{{ $book->price }}</td>
+            <td>{{ $book->stock }}</td>
+            <td>
+              <a class="btn btn-primary btn-xs" href="{{ route('book.edit',['id' => $book->id] )}}" >Edit</a> 
+              <a class="btn btn-danger btn-xs" href="{{ route('book/destroy',['id' => $book->id] )}}" >Delete</a>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
   </div>
 </div>
 @endsection

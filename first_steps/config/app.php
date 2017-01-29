@@ -147,6 +147,8 @@ return [
 
         //Bootstraps
         Collective\Html\HtmlServiceProvider::class,
+        //Sistema de notificaciones flash
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

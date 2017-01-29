@@ -17,6 +17,11 @@ Route::get('/', function () {
 //Se establece el recurso book y se crean todas las rutas acorde al CRUD
 Route::resource('book', 'BookController');
 
+//una nueva ruta para eliminar registros con el metodo get
+Route::get('book/destroy/{id}', ['as' => 'book/destroy', 'uses'=>'BookController@destroy']);
+//ruta para realizar busqueda de registros.
+Route::post('book/search', ['as' => 'book/search', 'uses'=>'BookController@search']);
+
 Route::get('home', [
     'as' => 'home',
     'uses' => 'HomeController@index'

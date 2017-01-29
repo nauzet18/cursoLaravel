@@ -121,6 +121,21 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+        return redirect()->back();
+    }
+
+    /**
+     * Shearch resources.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+         $books = Book::where('title','like','%'.$request->title.'%')->get();
+
+         return view('book.index', ['books' => $books ]);
     }
 }
