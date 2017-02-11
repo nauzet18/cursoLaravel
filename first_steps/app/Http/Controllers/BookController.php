@@ -71,7 +71,9 @@ class BookController extends Controller
             return redirect('/book');
         }
 
-        return view('book.show', ['book' => $book ]);
+        //Con compact, evito tener q crear el array calve-valor para indicar q nombre de variable y que variable pasar a la vista
+        //Ya compact crea ese array, buscando una variable que se llama book
+        return view('book.show', compact('book'));
     }
 
     /**
@@ -82,7 +84,10 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        return view('book.edit', ['book' => Book::find($id) ]);
+
+        $book = Book::findOrFail($id);
+
+        return view('book.edit', compact('book') );
     }
 
     /**
