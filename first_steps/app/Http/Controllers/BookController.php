@@ -84,8 +84,14 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-
-        $book = Book::findOrFail($id);
+        //Esto es un ejemplo de como capturar la excepcion de findOrFail y redirigir a una pagina con un mensaje
+        //En SHOW, lo hago de la manera tradicional, usando el find y preguntando si es vacio.
+        try {
+            $book = Book::findOrFail($id);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            flash('No se ha encontrado el elemento con id: '.$id, 'danger');
+            return redirect('/book');
+        }
 
         return view('book.edit', compact('book') );
     }
