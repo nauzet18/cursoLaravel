@@ -11,6 +11,9 @@
       <button type="submit" class="btn btn-default">Search</button>
       <a href="{{ route('book.index') }}" class="btn btn-primary">All</a>
       <a href="{{ route('book.create') }}" class="btn btn-primary">Create</a>
+      <div class="pull-right">
+        Número total de libros: {{$count}}
+      </div>
     {!! Form::close() !!}
       <br>
       <table class="table table-condensed table-striped table-bordered">

@@ -150,6 +150,9 @@ return [
         //Sistema de notificaciones flash
         Laracasts\Flash\FlashServiceProvider::class,
 
+        //Creando un ejemplo de un Composer Service Provider.
+        'App\Providers\ComposerServiceProvider',
+
     ],
 
     /*
