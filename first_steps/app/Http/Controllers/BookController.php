@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str as Str;
 use App\Book;
 
 class BookController extends Controller
@@ -40,7 +41,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $v = \Validator::make($request->all(), [
-            'title' => 'required',
+            'title' => 'required|unique:books',
             'isbn' => 'required|unique:books',
         ]);
         if ($v->fails())
@@ -48,7 +49,10 @@ class BookController extends Controller
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
 
-        Book::create($request->all());
+        $book= Book::create($request->all());
+        $book->slug = Str::slug( $book->title );
+        $book->save();
+
         flash('Creado correctamente');
         return redirect('/book');
     }
@@ -105,9 +109,12 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //NOTA; Por que en el update tengo que quitar el siguiente filtro? la parte del |unique:books
+        //'isbn' => 'required|unique:books',
+        //¿Como se comporta el unique en el validador? No me deja guardar actualizar un book.
         $v = \Validator::make($request->all(), [
             'title' => 'required',
-            'isbn' => 'required|unique:books',
+            'isbn' => 'required',
         ]);
         if ($v->fails())
         {
@@ -118,6 +125,7 @@ class BookController extends Controller
         //De esta manera relleno un objeto  con todos los campos que se han enviado por el formulario.
         //Npta: solo se rellenaran los atributos indicados en el modelo como fillable
         $book->fill($request->all() );
+        $book->slug = Str::slug( $book->title );
         $book->save();
         flash('Guardado correctamente');
   
