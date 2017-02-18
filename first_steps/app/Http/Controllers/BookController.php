@@ -142,7 +142,25 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->delete();
-        return redirect()->back();
+        return redirect()->back()->with("deleted" , $id );
+    }
+
+    /**
+    * restore the specified resource to storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+
+    public function restore( $id )
+    {
+       //Indicamos que la busqueda se haga en los registros eliminados con withTrashed
+       $book = Book::withTrashed()->where('id', '=', $id)->first();
+
+       //Restauramos el registro
+       $book->restore();
+
+       return redirect('/book/')->with("restored" , $id );
     }
 
     /**

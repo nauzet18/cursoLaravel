@@ -2,6 +2,15 @@
 @section('content')
 <div class="container">
     @include('errors.alerts')
+
+    @if (Session::has('deleted'))
+      <div class="alert alert-warning" role="alert"> Libro borrado, si desea deshacer el cambio <a href="{{ route('book/restore', [Session::get('deleted')]) }}">Click aqui</a> </div>
+    @endif
+
+    @if (Session::has('restored'))
+      <div class="alert alert-success" role="alert"> Libro restaurado</div>
+    @endif
+
     <div class="row">
      {!! Form::open(['route' => 'book/search', 'method' => 'post', 'novalidate', 'class' => 'form-inline']) !!}
       <div class="form-group">
