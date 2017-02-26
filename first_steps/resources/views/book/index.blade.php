@@ -32,7 +32,7 @@
             <th>ISBN</th>
             <th>Price</th>
             <th>Stock</th>
-            <th>Action</th>  
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
