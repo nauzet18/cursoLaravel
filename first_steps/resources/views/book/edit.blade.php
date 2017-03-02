@@ -8,8 +8,14 @@
         <div class="panel-heading">Edit book: {{$book->title }}</div>
 
         <div class="panel-body">
-          
+
+          @include('errors.alerts')
+
+          {!! Form::model($book, ['method' => 'PATCH','route' => ['book.update', $book->id]]) !!}
+
           @include('book._form', ['type' => 'edit'])
+
+          {!! Form::close() !!}
 
         </div>
       </div>

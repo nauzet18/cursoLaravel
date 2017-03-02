@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str as Str;
 use App\Book;
+use App\Author;
 
 class BookController extends Controller
 {
@@ -29,7 +30,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.create', ['book' => new Book ]);
+        $authors = Author::all();
+        $book = new Book;
+        return view('book.create', compact('book','authors'));
     }
 
     /**
@@ -97,7 +100,9 @@ class BookController extends Controller
             return redirect('/book');
         }
 
-        return view('book.edit', compact('book') );
+        $authors = Author::all();
+
+        return view('book.edit', compact('book','authors'));
     }
 
     /**

@@ -8,8 +8,14 @@
         <div class="panel-heading">Edit author: {{$author->nombre }} {{$author->apellidos }}</div>
 
         <div class="panel-body">
-          
+
+          @include('errors.alerts')
+
+          {!! Form::model($author, ['method' => 'PATCH','route' => ['author.update', $author->id]]) !!}
+
           @include('author._form', ['type' => 'edit'])
+
+          {!! Form::close() !!}
 
         </div>
       </div>

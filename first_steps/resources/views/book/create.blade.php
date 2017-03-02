@@ -9,7 +9,13 @@
 
         <div class="panel-body">
           
+          @include('errors.alerts')
+
+          {!! Form::open(['route' => 'book.store']) !!}
+
           @include('book._form', ['type' => 'create'])
+
+          {!! Form::close() !!}
 
         </div>
       </div>

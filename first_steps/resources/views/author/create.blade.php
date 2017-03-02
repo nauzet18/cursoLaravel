@@ -8,8 +8,14 @@
         <div class="panel-heading">Create author</div>
 
         <div class="panel-body">
-          
+
+          @include('errors.alerts')
+
+          {!! Form::open(['route' => 'author.store']) !!}
+
           @include('author._form', ['type' => 'create'])
+
+          {!! Form::close() !!}
 
         </div>
       </div>
