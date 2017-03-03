@@ -25,7 +25,8 @@
 
 <div class="form-group">
     {!! Form::label('author', 'Author') !!}
-    {!! Form::select('author', null, ['class' => 'form-control'])  !!}
+    {!! Form::select('author', $authors, null, ['class' => 'form-control']) !!}
+
 </div>
 
 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
