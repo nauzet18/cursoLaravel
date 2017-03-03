@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\CreateAuthorRequest;
 use App\Http\Controllers\Controller;
 use App\Author;
 
@@ -28,29 +29,21 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        $author = new Author;
-        return view('author.create', compact('author'));
+        return view('author.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request\CreateAuthorRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateAuthorRequest $request)
     {
-        //
-        $v = \Validator::make($request->all(), [
-            'nombre' => 'required',
-            'apellidos' => 'required',
-            'dni' => 'required|unique:authors',
-            'email' => 'required|unique:authors',
-        ]);
-        if ($v->fails())
-        {
-            return redirect()->back()->withInput()->withErrors($v->errors());
-        }
+        //NOTA: He eliminado esta forma de validar, donde yo lo uso todo y en su lugar he 
+        //usado la clase CreateAuthorRequest, que valida directamente a partir del objeto $request
+        //Esta clase puede gestionar las reglas de validación y si se esta autorizado o no. 
+        //Por lo que deja el codigo mucho mas limpio.
 
         $author= Author::create($request->all());
 
