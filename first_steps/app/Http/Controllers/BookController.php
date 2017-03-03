@@ -131,9 +131,12 @@ class BookController extends Controller
         //NOTA; Por que en el update tengo que quitar el siguiente filtro? la parte del |unique:books
         //'isbn' => 'required|unique:books',
         //¿Como se comporta el unique en el validador? No me deja guardar actualizar un book.
+        //REPUESTA=> Para poder poner en un update la regla de unique debemos añadir al filtro
+        //el ID del registro que queremos excluir de la comprobación.
+        //Asi reolvemos el tema de los unicos en un edit
         $v = \Validator::make($request->all(), [
-            'title' => 'required',
-            'isbn' => 'required',
+            'title' => 'required|unique:books,title,'.$id,
+            'isbn' => 'required|unique:books,isbn,'.$id,
         ]);
         if ($v->fails())
         {

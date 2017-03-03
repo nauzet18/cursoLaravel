@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\CreateAuthorRequest;
+use App\Http\Requests\EditAuthorRequest;
 use App\Http\Controllers\Controller;
 use App\Author;
 
@@ -94,8 +95,9 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditAuthorRequest $request, $id)
     {
+/*Ya no uso esta forma de validar, sino que uso los form request validation
         $v = \Validator::make($request->all(), [
             'nombre' => 'required',
             'apellidos' => 'required',
@@ -106,7 +108,7 @@ class AuthorController extends Controller
         {
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
-
+*/
         try {
             $author = Author::findOrFail($id);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
