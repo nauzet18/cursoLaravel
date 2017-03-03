@@ -43,6 +43,12 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        //NOTA; Esta manera de validar usa el alinas \Validator definido en confing/app.php
+        //Se pide un objeto validador donde pasamos los datos y las reglas y luego nosotros
+        //tenemos que comprobar si ha fallado y como actuar en consecuencia.
+
+//1º forma, parece que es la forma que se usaba en laravel 4
+/*
         $v = \Validator::make($request->all(), [
             'title' => 'required|unique:books',
             'isbn' => 'required|unique:books',
@@ -51,6 +57,14 @@ class BookController extends Controller
         {
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
+*/
+
+        //Otra forma de validar es usando el metodo validate del trait ValidatesRequests, que esta usado en la clase Controller.
+        //Este metodo ya tiene codigo que comprueba si ha fallado y hace el redirect con el back, con withInput, etc.
+        $this->validate($request, [
+            'title' => 'required|unique:books',
+            'isbn' => 'required|unique:books',
+        ]);
 
         $book= Book::create($request->all());
         $book->slug = Str::slug( $book->title );
