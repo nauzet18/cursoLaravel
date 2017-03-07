@@ -193,8 +193,9 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
-         $books = Book::where('title','like','%'.$request->title.'%')->get();
-
-         return view('book.index', ['books' => $books ]);
+        //Un ejemplo de crear y usar un SCOPE con el ORL, para dejar mas limpio el código de las busquedas
+        $books = Book::findTitle($request->title)->get();
+        //$books = Book::where('title','like','%'.$request->title.'%')->get();
+        return view('book.index', ['books' => $books ]);
     }
 }
